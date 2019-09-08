@@ -8,9 +8,9 @@ const server = express()
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
-var app = express.createServer(express.logger()),
+const app = express.createServer(express.logger()),
 const io = socketIO(server);
-app.use(express.static('public'))
+app.use(express.static(__dirname + '/public'));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
