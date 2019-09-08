@@ -2,14 +2,16 @@ const uid = require('./uid')
 const express = require('express');
 const _ = require('lodash');
 const port = process.env.PORT || 3001;
+const server = express()
+  .use((req, res) => res.sendFile(INDEX) )
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
-var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-app.use(cors());
+var app = express.createServer(express.logger()),
+const io = socketIO(server);
 app.use(express.static('public'))
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
@@ -132,7 +134,7 @@ app.use(cors());
 let roomsNamesObj = {};
 let userRoomObj = {}
 
-io.sockets.on('connection', function (socket) {
+io.on('connection', function (socket) {
     socket.on('subscribe', function (room) {
         console.log('joining room', room);
         socket.join(room);
