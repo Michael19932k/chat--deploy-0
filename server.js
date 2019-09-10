@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 var http = require('http').createServer(app);
-var io = require('socket.io')(http);
+var io = require('socket.io').listen(http);
 app.use(express.static('public'))
 app.use(cors());
 app.use(bodyParser.json());
