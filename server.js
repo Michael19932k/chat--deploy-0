@@ -1,4 +1,5 @@
 const uid = require('./uid')
+const path = require('path');
 const express = require('express');
 const app = express();
 const _ = require('lodash');
