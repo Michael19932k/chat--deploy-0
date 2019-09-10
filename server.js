@@ -7,6 +7,7 @@ const port = process.env.PORT || 3001;
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
+var http = require('http');
 var server = http.createServer(app).listen(port)
 var io = require('socket.io').listen(server);
 app.use(express.static('public'))
