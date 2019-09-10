@@ -6,7 +6,6 @@ const port = process.env.PORT || 3001;
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const express = require('express');
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 app.use(express.static('public'))
