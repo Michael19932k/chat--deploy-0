@@ -1,16 +1,14 @@
 const uid = require('./uid')
 const express = require('express');
+const app = express();
 const _ = require('lodash');
 const port = process.env.PORT || 3001;
-const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
-// const socketIO = require('socket.io');
-const app = express()
-app.use((req, res) => res.sendFile(INDEX) )
-app.listen(port, () => console.log(`Listening on ${ port }`));
-const io = require('socket.io').listen(app)
+const express = require('express');
+var http = require('http').createServer(app);
+var io = require('socket.io')(http);
 app.use(express.static('public'))
 app.use(cors());
 app.use(bodyParser.json());
