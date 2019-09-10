@@ -4,6 +4,8 @@ const socketIO = require('socket.io');
 const io = socketIO(server);
 const _ = require('lodash');
 const port = process.env.PORT || 3001;
+const path = require('path');
+const INDEX = path.join(__dirname, 'public/index.html');
 const server = express()
   .use((req, res) => res.sendFile(INDEX) )
   .listen(port, () => console.log(`Listening on ${ port }`));
@@ -12,8 +14,6 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express.createServer(express.logger());
 app.use(express.static(__dirname + '/public'));
-const path = require('path');
-const INDEX = path.join(__dirname, 'index.html');
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -21,6 +21,14 @@ app.use(bodyParser.urlencoded({
 }));
 
 // ````fetchs from LinkWindow````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+
+app.get("/*", function(req, res) {
+  res.sendFile(path.join(__dirname, "public/index.html"), function(err) {
+    if (err) {
+      res.status(500).send(err);
+    }
+  });
+});
 
 app.post('/createRoomId', function (req, res) {
     let insertOne = new roomsModel({
