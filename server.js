@@ -4,7 +4,6 @@ const express = require('express');
 const app = express();
 const _ = require('lodash');
 const port = process.env.PORT || 3001;
-app.set('port', (process.env.PORT || 5000));
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
