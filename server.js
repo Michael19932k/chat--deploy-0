@@ -7,12 +7,12 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const socketIO = require('socket.io');
+// const socketIO = require('socket.io');
 const server = express()
   .use((req, res) => res.sendFile(INDEX) )
   .listen(port, () => console.log(`Listening on ${ port }`));
 
-const io = socketIO(server);
+const io = require('socket.io').listen(server)
 app.use(express.static('public'))
 app.use(cors());
 app.use(bodyParser.json());
