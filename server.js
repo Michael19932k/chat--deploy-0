@@ -8,9 +8,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 // const socketIO = require('socket.io');
 const app = express()
-  .use((req, res) => res.sendFile(INDEX) )
-  .listen(port, () => console.log(`Listening on ${ port }`));
-
+app.use((req, res) => res.sendFile(INDEX) )
+app.listen(port, () => console.log(`Listening on ${ port }`));
 const io = require('socket.io').listen(app)
 app.use(express.static('public'))
 app.use(cors());
