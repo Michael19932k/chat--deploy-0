@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const app = require('http').createServer()
 const io = require('socket.io')(app)
-app.use(express.static('/public'));
+app.use(express.static('public'))
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
