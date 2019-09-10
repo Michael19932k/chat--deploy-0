@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const server = express()
   .use((req, res) => res.sendFile(INDEX) )
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+  .listen(port, () => console.log(`Listening on ${ port }`));
 
 const io = socketIO(server);
 app.use(express.static('public'))
