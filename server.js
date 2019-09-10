@@ -1,24 +1,20 @@
 const uid = require('./uid')
 const express = require('express');
-const socketIO = require('socket.io');
-const io = socketIO(server);
 const _ = require('lodash');
 const port = process.env.PORT || 3001;
 const path = require('path');
-const INDEX = path.join(__dirname, 'public/index.html');
-const server = express()
-  .use((req, res) => res.sendFile(INDEX) )
-  .listen(port, () => console.log(`Listening on ${ port }`));
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const app = express.createServer(express.logger());
+const app = require('http').createServer()
+const io = require('socket.io')(app)
 app.use(express.static(__dirname + '/public'));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
 
 // ````fetchs from LinkWindow````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 
