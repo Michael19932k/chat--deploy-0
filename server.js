@@ -3,7 +3,7 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const _ = require('lodash');
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 8080;
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -241,4 +241,4 @@ app.post('/messages/:room', (req, res) => {
 
 
 
-app.listen(port, () => console.log(`server listening on port ${port}!!!`))
+// app.listen(port, () => console.log(`server listening on port ${port}!!!`))
