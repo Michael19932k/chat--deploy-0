@@ -2,8 +2,6 @@ const uid = require('./uid')
 const express = require('express');
 const socketIO = require('socket.io');
 const io = socketIO(server);
-const path = require('path');
-const INDEX = path.join(__dirname, 'index.html');
 const _ = require('lodash');
 const port = process.env.PORT || 3001;
 const server = express()
@@ -14,6 +12,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express.createServer(express.logger());
 app.use(express.static(__dirname + '/public'));
+const path = require('path');
+const INDEX = path.join(__dirname, 'index.html');
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
