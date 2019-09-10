@@ -1,13 +1,14 @@
 const uid = require('./uid')
 const express = require('express');
+const app = express();
 const _ = require('lodash');
 const port = process.env.PORT || 3001;
 const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const app = require('http').createServer()
-const io = require('socket.io')(app)
+const server = require('http').createServer()
+const io = require('socket.io')(server)
 app.use(express.static('public'))
 app.use(cors());
 app.use(bodyParser.json());
