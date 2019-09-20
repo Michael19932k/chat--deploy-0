@@ -85,7 +85,7 @@ db.once('open', () => {
 const Schema = mongoose.Schema;
 const roomsSchema = new Schema({
     userInRoom: Array
-}, { type: Date, expires: 86400, default: Date.now });
+});
 
 
 // create collection (model) with it's schema
@@ -104,8 +104,9 @@ rooms_instance.save(function (err) {
 const usersSchenma = new Schema({
     name: String,
     uid: String,
-    rooms: Array
-}, { type: Date, expires: 86400, default: Date.now });
+    rooms: Array,
+    date: Date
+});
 
 
 // create collection (model) with it's schema
@@ -119,6 +120,7 @@ users_instance.save(function (err) {
     if (err) return handleError(err);
     console.log('user saved')
 });
+db.users.ensureIndex( { "date": 1 }, { expireAfterSeconds: 86400 } )
 //Define a schema
 // const Schema = mongoose.Schema;
 const messagesSchema = new Schema({
@@ -126,7 +128,7 @@ const messagesSchema = new Schema({
     message: String,
     date: Date,
     room: String
-}, { type: Date, expires: 86400, default: Date.now });
+});
 
 
 // create collection (model) with it's schema
@@ -134,6 +136,8 @@ const messagesModel = mongoose.model('messages', messagesSchema);
 
 // Create an instance of model SomeModel
 var messages_instance = new messagesModel({ name: 'awesome', message: "bla", date: new Date() });
+
+db.messages.ensureIndex( { "date": 1 }, { expireAfterSeconds: 86400 } )
 
 
 let name
