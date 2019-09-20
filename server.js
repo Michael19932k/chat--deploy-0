@@ -74,8 +74,9 @@ app.post('/generateRoomId', function (req, res) {
 // ```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 //connect mongoDB
 const url = "mongodb+srv://pucika2k:199313002k@cluster0-71gkv.mongodb.net/test?retryWrites=true&w=majority";
-const db = mongoose.connect(url).catch((error) => { console.log(error); });
-// db.on('error', console.error.bind(console, 'connection error:'));
+mongoose.connect(url, { useNewUrlParser: true });
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
     console.log('we are connected!');
 });
