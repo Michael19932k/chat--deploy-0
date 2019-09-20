@@ -105,7 +105,13 @@ const usersSchenma = new Schema({
     name: String,
     uid: String,
     rooms: Array,
-    date: Date
+    date: {
+        type: Date,
+        default: Date.now(),
+        index: {
+          expires: '2m'
+        }
+      }
 });
 
 
@@ -120,14 +126,19 @@ users_instance.save(function (err) {
     if (err) return handleError(err);
     console.log('user saved')
 });
-db.users.createIndex( { "date": 1 }, { expireAfterSeconds: 86400 } )
 //Define a schema
 // const Schema = mongoose.Schema;
 const messagesSchema = new Schema({
     name: String,
     message: String,
-    date: Date,
-    room: String
+    room: String,
+    date: {
+        type: Date,
+        default: Date.now(),
+        index: {
+          expires: '2m'
+        }
+      }
 });
 
 
@@ -137,7 +148,7 @@ const messagesModel = mongoose.model('messages', messagesSchema);
 // Create an instance of model SomeModel
 var messages_instance = new messagesModel({ name: 'awesome', message: "bla", date: new Date() });
 
-db.messages.createIndex( { "date": 1 }, { expireAfterSeconds: 86400 } )
+// db.messages.createIndex( { "date": 1 }, { expireAfterSeconds: 86400 } )
 
 
 let name
