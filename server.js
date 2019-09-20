@@ -16,16 +16,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-  
+
 
 // ````fetchs from LinkWindow``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 
-app.get("/*", function(req, res) {
-  res.sendFile(path.join(__dirname, "public/index.html"), function(err) {
-    if (err) {
-      res.status(500).send(err);
-    }
-  });
+app.get("/*", function (req, res) {
+    res.sendFile(path.join(__dirname, "public/index.html"), function (err) {
+        if (err) {
+            res.status(500).send(err);
+        }
+    });
 });
 
 app.post('/createRoomId', function (req, res) {
@@ -74,8 +74,7 @@ app.post('/generateRoomId', function (req, res) {
 // ```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 //connect mongoDB
 const url = "mongodb+srv://pucika2k:199313002k@cluster0-71gkv.mongodb.net/test?retryWrites=true&w=majority";
-mongoose.connect(url, { useNewUrlParser: true });
-const db = mongoose.connection;
+const db = mongoose.connect(url).catch((error) => { console.log(error); });
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
     console.log('we are connected!');
@@ -85,7 +84,7 @@ db.once('open', () => {
 const Schema = mongoose.Schema;
 const roomsSchema = new Schema({
     userInRoom: Array
-});
+}, { type: Date, expires: 86400, default: Date.now });
 
 
 // create collection (model) with it's schema
@@ -97,7 +96,7 @@ var rooms_instance = new roomsModel({ userInRoom: '' });
 // Save the new model instance, passing a callback
 rooms_instance.save(function (err) {
     if (err) return handleError(err);
-    console.log('saved')
+    console.log('room saved')
 });
 // Define a schema
 // const Schema = mongoose.Schema;
@@ -105,7 +104,7 @@ const usersSchenma = new Schema({
     name: String,
     uid: String,
     rooms: Array
-});
+}, { type: Date, expires: 86400, default: Date.now });
 
 
 // create collection (model) with it's schema
@@ -117,7 +116,7 @@ var users_instance = new usersModel({ name: '', rooms: "" });
 // Save the new model instance, passing a callback
 users_instance.save(function (err) {
     if (err) return handleError(err);
-    console.log('saved')
+    console.log('user saved')
 });
 //Define a schema
 // const Schema = mongoose.Schema;
@@ -126,7 +125,7 @@ const messagesSchema = new Schema({
     message: String,
     date: Date,
     room: String
-});
+}, { type: Date, expires: 86400, default: Date.now });
 
 
 // create collection (model) with it's schema
@@ -162,22 +161,22 @@ io.on('connection', function (socket) {
         }
 
         console.dir(roomsNamesObj)
-       
+
         try {
             io.in(nameObj.room).emit('name', roomsNamesObj[nameObj.room])
-        } catch(err) {
-        console.error(err)
+        } catch (err) {
+            console.error(err)
         }
     });
 
     socket.on('disconnect', function () {
         console.log('user disconnected');
         console.log(roomsNamesObj);
-        
+
         var connectionMessage = socket.username + " Disconnected from Socket " + socket.id;
-       
+
         let y = socket.username
-       
+
         try {
             let roomOfUser = userRoomObj[socket.id];
             let indexOfUser = roomsNamesObj[roomOfUser].indexOf(socket.username);
@@ -187,7 +186,7 @@ io.on('connection', function (socket) {
         } catch {
 
         }
-        
+
     });
 
 
@@ -200,7 +199,7 @@ io.on('connection', function (socket) {
         let newMessage = new messagesModel({ name: data.name, message: data.message, date: new Date(), room: data.room });
         newMessage.save(function (err) {
             if (err) return handleError(err);
-            console.log('saved')
+            console.log('message saved')
         });
 
         io.in(data.room).emit('message', data);
