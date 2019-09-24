@@ -188,7 +188,7 @@ io.on('connection', function (socket) {
     socket.on('disconnect', function () {
         console.log('user disconnected');
         console.log(roomsNamesObj);
-
+        socket.removeAllListeners();
         var connectionMessage = socket.username + " Disconnected from Socket " + socket.id;
 
         let y = socket.username
@@ -199,8 +199,8 @@ io.on('connection', function (socket) {
             roomsNamesObj[roomOfUser].splice(indexOfUser, 1);
             console.log(roomsNamesObj)
             io.in(roomOfUser).emit('updateusers', roomsNamesObj[roomOfUser])
-        } catch {
-
+        } catch (err) {
+            console.error(err)
         }
 
     });
