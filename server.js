@@ -134,7 +134,7 @@ users_instance.save(function (err) {
 const messagesSchema = new Schema({
     name: String,
     message: String,
-    date: Date,
+    date: Date.GMT+3,
     room: String,
     expireAt: {
         type: Date,
