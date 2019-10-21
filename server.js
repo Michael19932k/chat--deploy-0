@@ -52,8 +52,7 @@ app.post('/generateRoomId', function (req, res) {
                 } else {
                     let insertOne = new usersModel({
                         name: req.body.userName,
-                        rooms: req.body.passToken,
-                        createAt: Date.now()
+                        rooms: req.body.passToken
                     })
                     insertOne.save(function (err, insertOne) {
                         if (err) return console.error(err);
@@ -87,7 +86,7 @@ const Schema = mongoose.Schema;
 const roomsSchema = new Schema({
     userInRoom: Array,
     date: Date,
-    createdAt: { type: Date, expires: '30m', default: Date.now }
+    createdAt: { type: Date, expires: '24h', default: Date.now }
 });
 
 
@@ -109,11 +108,7 @@ const usersSchenma = new Schema({
     name: String,
     rooms: Array,
     date: Date,
-    createAt: {
-        type: Date,
-        default: Date.now,
-        index: { expires: 60 * 60 },
-    }
+    createdAt: { type: Date, expires: '24h', default: Date.now }
 });
 
 
@@ -128,11 +123,7 @@ const messagesSchema = new Schema({
     message: String,
     date: Date,
     room: String,
-    createAt: {
-        type: Date,
-        default: Date.now,
-        index: { expires: 60 * 60 },
-    }
+    createdAt: { type: Date, expires: '24h', default: Date.now }
 });
 
 
@@ -205,7 +196,7 @@ io.on('connection', function (socket) {
 
         // save message to db
         let newMessage = new messagesModel({
-            name: data.name, message: data.message, date: new Date(), room: data.room, createAt: Date.now()
+            name: data.name, message: data.message, date: new Date(), room: data.room
         });
         newMessage.save(function (err) {
             if (err) return handleError(err);
