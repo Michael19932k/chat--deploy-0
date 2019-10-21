@@ -89,7 +89,7 @@ const roomsSchema = new Schema({
     createAt: {
         type: Date,
         default: Date.now,
-        index: { expires: 60*1 },
+        index: { expires: 60*3 },
     }
 });
 
@@ -111,10 +111,11 @@ const usersSchenma = new Schema({
     name: String,
     uid: String,
     rooms: Array,
+    date: Date,
     createAt: {
         type: Date,
         default: Date.now,
-        index: { expires: 60*1 },
+        index: { expires: 60*3 },
     }
 });
 
@@ -142,7 +143,7 @@ const messagesSchema = new Schema({
     createAt: {
         type: Date,
         default: Date.now,
-        index: { expires: 60*1 },
+        index: { expires: 60*3 },
     }
 });
 
