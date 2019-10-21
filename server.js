@@ -52,7 +52,8 @@ app.post('/generateRoomId', function (req, res) {
                 } else {
                     let insertOne = new usersModel({
                         name: req.body.userName,
-                        rooms: req.body.passToken
+                        rooms: req.body.passToken,
+                        createAt: Date.now()
                     })
                     insertOne.save(function (err, insertOne) {
                         if (err) return console.error(err);
@@ -226,11 +227,6 @@ io.on('connection', function (socket) {
 app.post('/messages/:room', (req, res) => {
     name = req.body.name
     const roomZ = req.params.room;
-    var users_instance = new usersModel({ name: name, rooms: roomZ, createAt: Date.now() });
-    users_instance.save(function (err) {
-        if (err) return handleError(err);
-        console.log('saved')
-    });
     messagesModel.find({ room: roomZ }, (err, docs) => {
 
         if (err) throw err;
