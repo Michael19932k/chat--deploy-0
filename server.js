@@ -111,7 +111,7 @@ const usersSchenma = new Schema({
     name: String,
     uid: String,
     rooms: Array,
-    date: Date,
+    createAt: Date,
     expireAt: {
         type: Date,
         default: Date.now,
@@ -139,6 +139,7 @@ const messagesSchema = new Schema({
     name: String,
     message: String,
     date: Date,
+    createAt: Date,
     room: String,
     expireAt: {
         type: Date,
@@ -153,7 +154,7 @@ const messagesModel = mongoose.model('messages', messagesSchema);
 
 // Create an instance of model SomeModel
 var messages_instance = new messagesModel({
-    name: 'awesome', message: "bla", date: new Date(), createAt: Date.now()
+    name: 'awesome', message: "bla", date: Date.now(), createAt: Date.now()
 });
 
 
