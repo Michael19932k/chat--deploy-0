@@ -106,6 +106,7 @@ rooms_instance.save(function (err) {
     if (err) return handleError(err);
     console.log('saved')
 });
+
 // Define a schema
 // const Schema = mongoose.Schema;
 const usersSchenma = new Schema({
@@ -241,7 +242,7 @@ app.post('/messages/:room', (req, res) => {
 
 
 
-
+db.insertOne.createIndex( { createAt: 1 }, { expireAfterSeconds: 86400 } )
 
 
 
