@@ -89,7 +89,7 @@ const roomsSchema = new Schema({
     expireAt: {
         type: Date,
         default: Date.now,
-        index: { expires: '86400000ms' },
+        index: { expires: 60*1 },
     }
 });
 
@@ -115,7 +115,7 @@ const usersSchenma = new Schema({
     expireAt: {
         type: Date,
         default: Date.now,
-        index: { expires: '86400000ms' },
+        index: { expires: 60*1 },
     }
 });
 
@@ -143,7 +143,7 @@ const messagesSchema = new Schema({
     expireAt: {
         type: Date,
         default: Date.now,
-        index: { expires: '86400000ms' },
+        index: { expires: 60*1 },
     }
 });
 
