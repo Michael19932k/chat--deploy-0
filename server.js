@@ -125,11 +125,7 @@ const usersModel = mongoose.model('Users', usersSchenma);
 
 // Create an instance of model SomeModel
 var users_instance = new usersModel({
-    name: '', rooms: "", expireAt: {
-        type: Date,
-        default: Date.now,
-        index: { expires: '86400000ms' }
-    }
+    name: '', rooms: "", createAt: Date.now()
 });
 
 // Save the new model instance, passing a callback
@@ -157,11 +153,7 @@ const messagesModel = mongoose.model('messages', messagesSchema);
 
 // Create an instance of model SomeModel
 var messages_instance = new messagesModel({
-    name: 'awesome', message: "bla", date: new Date(), expireAt: {
-        type: Date,
-        default: Date.now,
-        index: { expires: '86400000ms' }
-    }
+    name: 'awesome', message: "bla", date: new Date(), createAt: Date.now()
 });
 
 
@@ -228,11 +220,8 @@ io.on('connection', function (socket) {
 
         // save message to db
         let newMessage = new messagesModel({
-            name: data.name, message: data.message, date: new Date(), room: data.room, expireAt: {
-                type: Date,
-                default: Date.now,
-                index: { expires: '86400000ms' }
-            }});
+            name: data.name, message: data.message, date: new Date(), room: data.room, createAt: Date.now()
+        });
         newMessage.save(function (err) {
             if (err) return handleError(err);
             console.log('message saved')
