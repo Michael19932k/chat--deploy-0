@@ -123,14 +123,7 @@ const usersSchenma = new Schema({
 // create collection (model) with it's schema
 const usersModel = mongoose.model('Users', usersSchenma);
 
-// Create an instance of model SomeModel
-var users_instance = new usersModel({ name: '', rooms: '', createAt: Date.now() });
 
-// Save the new model instance, passing a callback
-users_instance.save(function (err) {
-    if (err) return handleError(err);
-    console.log('saved')
-});
 //Define a schema
 // const Schema = mongoose.Schema;
 const messagesSchema = new Schema({
@@ -237,8 +230,13 @@ io.on('connection', function (socket) {
 
 
 app.post('/messages/:room', (req, res) => {
-    let name = req.body.name
+    name = req.body.name
     const roomZ = req.params.room;
+    var users_instance = new usersModel({ name: name, rooms: roomZ, createAt: Date.now() });
+    users_instance.save(function (err) {
+        if (err) return handleError(err);
+        console.log('saved')
+    });
     messagesModel.find({ room: roomZ }, (err, docs) => {
 
         if (err) throw err;
