@@ -109,7 +109,6 @@ rooms_instance.save(function (err) {
 // const Schema = mongoose.Schema;
 const usersSchenma = new Schema({
     name: String,
-    uid: String,
     rooms: Array,
     date: Date,
     createAt: {
@@ -141,11 +140,6 @@ const messagesSchema = new Schema({
 
 // create collection (model) with it's schema
 const messagesModel = mongoose.model('messages', messagesSchema);
-
-// Create an instance of model SomeModel
-// var messages_instance = new messagesModel({
-//     name: 'awesome', message: "bla", date: Date.now(), createAt: Date.now()
-// });
 
 
 
