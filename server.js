@@ -86,7 +86,7 @@ const Schema = mongoose.Schema;
 const roomsSchema = new Schema({
     userInRoom: Array,
     date: Date,
-    expireAt: {
+    createAt: {
         type: Date,
         default: Date.now,
         index: { expires: 60*1 },
@@ -98,7 +98,7 @@ const roomsSchema = new Schema({
 const roomsModel = mongoose.model('rooms', roomsSchema);
 
 // Create an instance of model SomeModel
-var rooms_instance = new roomsModel({ userInRoom: '' });
+var rooms_instance = new roomsModel({ userInRoom: '', createAt: Date.now() });
 
 // Save the new model instance, passing a callback
 rooms_instance.save(function (err) {
@@ -111,8 +111,7 @@ const usersSchenma = new Schema({
     name: String,
     uid: String,
     rooms: Array,
-    createAt: Date,
-    expireAt: {
+    createAt: {
         type: Date,
         default: Date.now,
         index: { expires: 60*1 },
@@ -139,9 +138,8 @@ const messagesSchema = new Schema({
     name: String,
     message: String,
     date: Date,
-    createAt: Date,
     room: String,
-    expireAt: {
+    createAt: {
         type: Date,
         default: Date.now,
         index: { expires: 60*1 },
