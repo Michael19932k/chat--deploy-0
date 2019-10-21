@@ -150,9 +150,9 @@ const messagesSchema = new Schema({
 const messagesModel = mongoose.model('messages', messagesSchema);
 
 // Create an instance of model SomeModel
-var messages_instance = new messagesModel({
-    name: 'awesome', message: "bla", date: Date.now(), createAt: Date.now()
-});
+// var messages_instance = new messagesModel({
+//     name: 'awesome', message: "bla", date: Date.now(), createAt: Date.now()
+// });
 
 
 
@@ -161,7 +161,9 @@ let name
 app.use(cors());
 
 let roomsNamesObj = {};
+console.log(roomsNamesObj)
 let userRoomObj = {}
+console.log(userRoomObj)
 
 io.on('connection', function (socket) {
     socket.on('subscribe', function (room) {
