@@ -90,7 +90,7 @@ const roomsSchema = new Schema({
         type: Date,
         default: Date.now,
         index: { expires: '86400000ms' },
-      }
+    }
 });
 
 
@@ -116,7 +116,7 @@ const usersSchenma = new Schema({
         type: Date,
         default: Date.now,
         index: { expires: '86400000ms' },
-      }
+    }
 });
 
 
@@ -124,7 +124,13 @@ const usersSchenma = new Schema({
 const usersModel = mongoose.model('Users', usersSchenma);
 
 // Create an instance of model SomeModel
-var users_instance = new usersModel({ name: '', rooms: "" });
+var users_instance = new usersModel({
+    name: '', rooms: "", expireAt: {
+        type: Date,
+        default: Date.now,
+        index: { expires: '86400000ms' }
+    }
+});
 
 // Save the new model instance, passing a callback
 users_instance.save(function (err) {
@@ -142,7 +148,7 @@ const messagesSchema = new Schema({
         type: Date,
         default: Date.now,
         index: { expires: '86400000ms' },
-      }
+    }
 });
 
 
@@ -150,7 +156,13 @@ const messagesSchema = new Schema({
 const messagesModel = mongoose.model('messages', messagesSchema);
 
 // Create an instance of model SomeModel
-var messages_instance = new messagesModel({ name: 'awesome', message: "bla", date: new Date() });
+var messages_instance = new messagesModel({
+    name: 'awesome', message: "bla", date: new Date(), expireAt: {
+        type: Date,
+        default: Date.now,
+        index: { expires: '86400000ms' }
+    }
+});
 
 
 
@@ -215,7 +227,12 @@ io.on('connection', function (socket) {
         // console.log('sending message', data);
 
         // save message to db
-        let newMessage = new messagesModel({ name: data.name, message: data.message, date: new Date(), room: data.room });
+        let newMessage = new messagesModel({
+            name: data.name, message: data.message, date: new Date(), room: data.room, expireAt: {
+                type: Date,
+                default: Date.now,
+                index: { expires: '86400000ms' }
+            }});
         newMessage.save(function (err) {
             if (err) return handleError(err);
             console.log('message saved')
